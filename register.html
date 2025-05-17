@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>إنشاء حساب - مكتبة الجمهورية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       direction: rtl;
       background-color: #fff;
+      margin: 0;
+      padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -16,41 +19,59 @@
     }
     .container {
       text-align: center;
-      padding: 30px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      background-color: white;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #1E3C72;
     }
     button {
-      padding: 12px 24px;
+      padding: 12px 28px;
       font-size: 1rem;
       background-color: #1E3C72;
       color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
     }
     button:hover {
       background-color: #16355c;
     }
+    .note {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #555;
+    }
   </style>
 </head>
 <body>
+
   <div class="container">
-    <h2>إنشاء حساب</h2>
-    <button onclick="netlifyIdentity.open('signup')">اضغط لإنشاء حساب</button>
-    <p>لديك حساب؟ <a href="#" onclick="netlifyIdentity.open('login')">سجّل الدخول</a></p>
+    <h2>إنشاء حساب جديد</h2>
+    <button onclick="openSignup()">اضغط هنا لإنشاء الحساب</button>
+    <div class="note">سيتم فتح نافذة لتسجيل الحساب أو تسجيل الدخول.</div>
   </div>
 
   <script>
+    // تهيئة Netlify Identity
     netlifyIdentity.init();
-    netlifyIdentity.on('signup', user => {
-      console.log('تم إنشاء الحساب:', user);
-    });
+
+    // فتح نموذج التسجيل
+    function openSignup() {
+      netlifyIdentity.open('signup');
+    }
+
+    // يمكنك تنفيذ إجراءات بعد تسجيل الدخول هنا إن أردت
     netlifyIdentity.on('login', user => {
-      console.log('تم تسجيل الدخول:', user);
+      alert('مرحبًا بك، ' + user.user_metadata.full_name || user.email);
+      window.location.href = '/'; // تحويل للموقع بعد التسجيل
     });
   </script>
+
 </body>
 </html>
