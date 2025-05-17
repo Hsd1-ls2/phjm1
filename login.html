@@ -12,24 +12,98 @@
       box-sizing: border-box;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    
+
     body, html {
-      height: 100%;
+      min-height: 100vh;
       background-color: #ffffff; /* خلفية بيضاء */
-      display: flex;
-      justify-content: center;
-      align-items: center;
       direction: rtl;
     }
 
+    /* ====== Navbar ====== */
+    nav.navbar {
+      background-color: #1E3C72;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      flex-wrap: wrap;
+    }
+
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    nav .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav .nav-links li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    nav .nav-links li a:hover {
+      color: #a3c1f8;
+    }
+
+    nav .search-language-cart-login {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    nav .search-language-cart-login input[type="text"] {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.9rem;
+      width: 150px;
+    }
+
+    nav .search-language-cart-login select {
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    nav .search-language-cart-login button {
+      background-color: transparent;
+      border: none;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+
+    nav .search-language-cart-login button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* ====== Login Container ====== */
     .login-container {
+      max-width: 360px;
+      margin: 40px auto;
       background-color: white;
-      width: 360px;
       border-radius: 12px;
-      box-shadow: 0 12px 24px rgba(0,0,0,0.15); /* ظل أخف */
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
       padding: 40px 30px;
       text-align: center;
-      border: 1px solid #ddd; /* إضافة إطار فاتح */
+      border: 1px solid #ddd;
     }
 
     .login-container h2 {
@@ -106,10 +180,39 @@
         width: 90%;
         padding: 30px 20px;
       }
+
+      nav .nav-links {
+        gap: 10px;
+      }
+
+      nav .search-language-cart-login input[type="text"] {
+        width: 100px;
+      }
     }
   </style>
 </head>
 <body>
+
+  <nav class="navbar">
+    <div class="logo">مكتبة الجمهورية</div>
+
+    <ul class="nav-links">
+      <li><a href="index.html">الرئيسية</a></li>
+      <li><a href="notebooks.html">الدفاتر</a></li>
+      <li><a href="pens.html">الأقلام</a></li>
+      <li><a href="electronics.html">الإلكترونيات</a></li>
+    </ul>
+
+    <div class="search-language-cart-login">
+      <input type="text" id="search-input" placeholder="ابحث عن منتج..." />
+      <select id="language-select" aria-label="اختيار اللغة">
+        <option value="ar" selected>العربية</option>
+        <option value="en">English</option>
+      </select>
+      <button id="cart-button" title="عربة التسوق">🛒 <span id="cart-count">0</span></button>
+      <button id="login-button" title="تسجيل الدخول">دخول</button>
+    </div>
+  </nav>
 
   <div class="login-container">
     <h2>تسجيل الدخول</h2>
@@ -128,18 +231,30 @@
   </div>
 
   <script>
+    // نموذج تسجيل الدخول مبسط (اختبار فقط)
     document.getElementById('login-form').addEventListener('submit', function(e) {
       e.preventDefault();
       const email = e.target.email.value.trim();
       const password = e.target.password.value.trim();
 
-      // تحقق مبسط (للاختبار فقط)
       if(email === "user@example.com" && password === "123456") {
         alert("تم تسجيل الدخول بنجاح!");
         window.location.href = "index.html";
       } else {
         alert("البريد الإلكتروني أو كلمة المرور غير صحيحة.");
       }
+    });
+
+    // تحديث عدد المنتجات في العربة (مكان مؤقت)
+    const cartCount = document.getElementById('cart-count');
+    cartCount.textContent = localStorage.getItem('cartCount') || '0';
+
+    // أزرار وهمية - يمكن ربطها لاحقًا
+    document.getElementById('cart-button').addEventListener('click', () => {
+      alert('فتح عربة التسوق');
+    });
+    document.getElementById('login-button').addEventListener('click', () => {
+      window.location.href = "login.html";
     });
   </script>
 </body>
