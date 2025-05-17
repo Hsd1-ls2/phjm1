@@ -49,7 +49,11 @@
     }
     .send-button {
       background-color: #25D366;
-      margin-top: 30px;
+      /* هذه القاعدة الجديدة لتموضع الزر */
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      margin: 0;
     }
   </style>
 </head>
@@ -57,31 +61,10 @@
 
   <h1>مكتبة ومصور الجمهورية</h1>
 
- <div class="product">
-  <img src="https://i.ibb.co/HL14mhgh/32-copy.jpg" alt="دفتر A4" />
-  <div class="product-name">دفتر A4</div>
-  <div class="price">$2</div>
-  <button class="add-button" onclick="addToCart('دفتر A4 - $2')">أضف إلى السلة</button>
-</div>
+  <!-- منتجات... -->
 
-
-  <div class="product">
-    <img src="https://i.imgur.com/SJxGRMf.jpg" alt="أقلام ألوان" />
-    <div class="product-name">أقلام ألوان</div>
-    <div class="price">$5</div>
-    <button class="add-button" onclick="addToCart('أقلام ألوان - $5')">أضف إلى السلة</button>
-  </div>
-
-  <div class="product">
-    <img src="https://i.imgur.com/Zl0a5E3.jpg" alt="آلة حاسبة" />
-    <div class="product-name">آلة حاسبة</div>
-    <div class="price">$8</div>
-    <button class="add-button" onclick="addToCart('آلة حاسبة - $8')">أضف إلى السلة</button>
-  </div>
-
-  <div style="text-align: center;">
-    <a id="sendWhatsApp" class="send-button" href="#" target="_blank">إرسال الطلب على واتساب</a>
-  </div>
+  <!-- زر واتساب بدون غلاف وسيط -->
+  <a id="sendWhatsApp" class="send-button" href="#" target="_blank">إرسال الطلب على واتساب</a>
 
   <script>
     let cart = [];
