@@ -1,33 +1,62 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>دفاتر - مكتبة الجمهورية</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="script.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>الدفاتر - مكتبة ومصور الجمهورية</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>قسم الدفاتر</h1>
-    <a href="index.html">العودة إلى الأقسام</a>
-  </header>
 
-  <main class="products">
-    <div class="product">
-      <img src="https://i.imgur.com/A4Xj4fF.jpg" alt="دفتر A4">
-      <div class="product-name">دفتر A4</div>
-      <div class="price">$2</div>
-      <button onclick="addToCart('دفتر A4 - $2')">أضف إلى السلة</button>
+  <nav class="navbar">
+    <div class="logo">مكتبة الجمهورية</div>
+
+    <ul class="nav-links">
+      <li><a href="index.html">الرئيسية</a></li>
+      <li><a href="notebooks.html" class="active">الدفاتر</a></li>
+      <li><a href="pens.html">الأقلام</a></li>
+      <li><a href="electronics.html">الإلكترونيات</a></li>
+    </ul>
+
+    <div class="search-language-cart-login">
+      <input type="text" id="search-input" placeholder="ابحث عن منتج..." />
+      <select id="language-select" aria-label="اختيار اللغة">
+        <option value="ar" selected>العربية</option>
+        <option value="en">English</option>
+      </select>
+      <button id="cart-button">🛒 <span id="cart-count">0</span></button>
+      <button id="login-button">تسجيل الدخول</button>
     </div>
+  </nav>
 
-    <div class="product">
-      <img src="https://i.imgur.com/aeRsyy7.jpg" alt="دفتر شبكي">
-      <div class="product-name">دفتر شبكي</div>
-      <div class="price">$2.5</div>
-      <button onclick="addToCart('دفتر شبكي - $2.5')">أضف إلى السلة</button>
+  <main>
+    <h1>الدفاتر</h1>
+
+    <div class="products">
+      <div class="product">
+        <img src="https://i.imgur.com/7SWRzF5.jpg" alt="دفتر A4" />
+        <div class="product-name">دفتر A4</div>
+        <div class="price">$2</div>
+        <button class="add-button" onclick="addToCart('دفتر A4', 2)">أضف إلى السلة</button>
+      </div>
+
+      <div class="product">
+        <img src="https://i.imgur.com/PCy20uY.jpg" alt="دفتر ملاحظات" />
+        <div class="product-name">دفتر ملاحظات</div>
+        <div class="price">$3</div>
+        <button class="add-button" onclick="addToCart('دفتر ملاحظات', 3)">أضف إلى السلة</button>
+      </div>
     </div>
   </main>
 
-  <a id="sendWhatsApp" class="send-button" href="#" target="_blank">إرسال الطلب على واتساب</a>
+  <script src="script.js"></script>
+  <script>
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      alert(name + " تمت إضافته إلى السلة.");
+    }
+  </script>
 </body>
 </html>
