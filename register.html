@@ -84,44 +84,45 @@
     <p class="link">هل لديك حساب؟ <a href="login.html">تسجيل الدخول</a></p>
   </div>
 
-  <!-- مكتبة Netlify Identity -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
     const identity = window.netlifyIdentity;
-    if (identity) {
-      identity.init();
+    if (!identity) {
+      document.getElementById('error-msg').textContent = "فشل تحميل مكتبة Netlify Identity.";
     } else {
-      console.error("فشل تحميل مكتبة Netlify Identity.");
-    }
+      identity.init();
 
-    const registerBtn = document.getElementById('register-btn');
-    const errorMsg = document.getElementById('error-msg');
-    const successMsg = document.getElementById('success-msg');
+      document.getElementById('register-btn').addEventListener('click', () => {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
 
-    registerBtn.addEventListener('click', () => {
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
+        const errorMsg = document.getElementById('error-msg');
+        const successMsg = document.getElementById('success-msg');
+        errorMsg.textContent = '';
+        successMsg.textContent = '';
 
-      errorMsg.textContent = '';
-      successMsg.textContent = '';
+        if (!name || !email || !password) {
+          errorMsg.textContent = 'يرجى ملء جميع الحقول.';
+          return;
+        }
 
-      if (!name || !email || !password) {
-        errorMsg.textContent = 'يرجى ملء جميع الحقول.';
-        return;
-      }
-
-      identity.signup(email, password, { full_name: name })
-        .then(() => {
+        // لا توجد دالة signup مباشرة، نستخدم identity.signup مع أحداث "signup"
+        identity.signup(email, password).then(user => {
+          // حدث التسجيل ناجح
           successMsg.textContent = 'تم إنشاء الحساب! تحقق من بريدك الإلكتروني لتأكيد الحساب.';
+          // تحديث معلومات المستخدم (مثلاً الاسم)
+          if(user && user.user_metadata) {
+            user.user_metadata.full_name = name;
+          }
           setTimeout(() => {
             window.location.href = 'login.html';
           }, 3000);
-        })
-        .catch(err => {
-          errorMsg.textContent = 'حدث خطأ في إنشاء الحساب: ' + err.message;
+        }).catch(err => {
+          errorMsg.textContent = 'حدث خطأ: ' + (err.message || err);
         });
-    });
+      });
+    }
   </script>
 </body>
 </html>
