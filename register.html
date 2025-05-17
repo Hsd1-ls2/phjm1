@@ -3,273 +3,105 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>إنشاء حساب - مكتبة ومصور الجمهورية</title>
+  <title>إنشاء حساب - مكتبة الجمهورية</title>
   <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body, html {
-      min-height: 100vh;
-      background-color: #ffffff; /* خلفية بيضاء */
-      direction: rtl;
-    }
-
-    /* ====== Navbar ====== */
-    nav.navbar {
-      background-color: #1E3C72;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: white;
-      flex-wrap: wrap;
-    }
-
-    nav .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    nav .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    nav .nav-links li a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: color 0.3s;
-    }
-
-    nav .nav-links li a:hover {
-      color: #a3c1f8;
-    }
-
-    nav .search-language-cart-login {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    nav .search-language-cart-login input[type="text"] {
-      padding: 6px 10px;
-      border-radius: 6px;
-      border: none;
-      font-size: 0.9rem;
-      width: 150px;
-    }
-
-    nav .search-language-cart-login select {
-      padding: 6px 8px;
-      border-radius: 6px;
-      border: none;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-
-    nav .search-language-cart-login button {
-      background-color: transparent;
-      border: none;
-      color: white;
-      font-size: 1.1rem;
-      cursor: pointer;
-      font-weight: 600;
-      padding: 6px 10px;
-      border-radius: 6px;
-      transition: background-color 0.3s;
-    }
-
-    nav .search-language-cart-login button:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    /* ====== Register Container ====== */
-    .register-container {
+    body { font-family: Arial, sans-serif; background: #fff; direction: rtl; }
+    .container {
       max-width: 360px;
-      margin: 40px auto;
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-      padding: 40px 30px;
+      margin: 60px auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      background: white;
       text-align: center;
-      border: 1px solid #ddd;
     }
-
-    .register-container h2 {
-      margin-bottom: 25px;
-      color: #1E3C72;
-      font-weight: 700;
-      font-size: 1.8rem;
-    }
-
-    .input-group {
-      margin-bottom: 20px;
-      text-align: right;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: #333;
-      font-size: 1rem;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
+    input, button {
       width: 100%;
-      padding: 12px 15px;
-      border: 1.5px solid #ccc;
-      border-radius: 8px;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
       font-size: 1rem;
-      transition: border-color 0.3s;
     }
-
-    input[type="text"]:focus,
-    input[type="email"]:focus,
-    input[type="password"]:focus {
-      border-color: #1E3C72;
-      outline: none;
-    }
-
     button {
-      width: 100%;
-      padding: 14px;
       background-color: #1E3C72;
-      border: none;
-      border-radius: 8px;
       color: white;
-      font-size: 1.1rem;
-      font-weight: 700;
+      border: none;
       cursor: pointer;
-      transition: background-color 0.3s;
+      font-weight: 600;
     }
-
     button:hover {
       background-color: #16355c;
     }
-
-    .login-link {
-      margin-top: 18px;
+    .link {
+      margin-top: 15px;
       font-size: 0.9rem;
-      color: #555;
     }
-
-    .login-link a {
+    .link a {
       color: #1E3C72;
       text-decoration: none;
-      font-weight: 600;
     }
-
-    .login-link a:hover {
+    .link a:hover {
       text-decoration: underline;
     }
-
-    @media (max-width: 400px) {
-      .register-container {
-        width: 90%;
-        padding: 30px 20px;
-      }
-
-      nav .nav-links {
-        gap: 10px;
-      }
-
-      nav .search-language-cart-login input[type="text"] {
-        width: 100px;
-      }
+    .error, .success {
+      margin: 12px 0;
+      font-weight: 600;
     }
+    .error { color: red; }
+    .success { color: green; }
   </style>
 </head>
 <body>
 
-  <nav class="navbar">
-    <div class="logo">مكتبة الجمهورية</div>
-
-    <ul class="nav-links">
-      <li><a href="index.html">الرئيسية</a></li>
-      <li><a href="notebooks.html">الدفاتر</a></li>
-      <li><a href="pens.html">الأقلام</a></li>
-      <li><a href="electronics.html">الإلكترونيات</a></li>
-    </ul>
-
-    <div class="search-language-cart-login">
-      <input type="text" id="search-input" placeholder="ابحث عن منتج..." />
-      <select id="language-select" aria-label="اختيار اللغة">
-        <option value="ar" selected>العربية</option>
-        <option value="en">English</option>
-      </select>
-      <button id="cart-button" title="عربة التسوق">🛒 <span id="cart-count">0</span></button>
-      <button id="login-button" title="تسجيل الدخول">دخول</button>
-    </div>
-  </nav>
-
-  <div class="register-container">
+  <div class="container">
     <h2>إنشاء حساب جديد</h2>
-    <form id="register-form">
-      <div class="input-group">
-        <label for="username">اسم المستخدم</label>
-        <input type="text" id="username" placeholder="أدخل اسم المستخدم" required />
-      </div>
-      <div class="input-group">
-        <label for="email">البريد الإلكتروني</label>
-        <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني" required />
-      </div>
-      <div class="input-group">
-        <label for="password">كلمة المرور</label>
-        <input type="password" id="password" placeholder="أدخل كلمة المرور" required />
-      </div>
-      <div class="input-group">
-        <label for="confirm-password">تأكيد كلمة المرور</label>
-        <input type="password" id="confirm-password" placeholder="أدخل تأكيد كلمة المرور" required />
-      </div>
-      <button type="submit">إنشاء الحساب</button>
-    </form>
-    <p class="login-link">هل لديك حساب؟ <a href="login.html">تسجيل الدخول</a></p>
+
+    <input type="text" id="name" placeholder="الاسم الكامل" required />
+    <input type="email" id="email" placeholder="البريد الإلكتروني" required />
+    <input type="password" id="password" placeholder="كلمة المرور" required />
+    <button id="register-btn">إنشاء حساب</button>
+
+    <div class="error" id="error-msg"></div>
+    <div class="success" id="success-msg"></div>
+
+    <p class="link">هل لديك حساب؟ <a href="login.html">تسجيل الدخول</a></p>
   </div>
 
+  <!-- Netlify Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
-    // نموذج التسجيل مبسط للاختبار فقط
-    document.getElementById('register-form').addEventListener('submit', function(e) {
-      e.preventDefault();
+    const identity = netlifyIdentity;
+    identity.init();
 
-      const username = e.target.username.value.trim();
-      const email = e.target.email.value.trim();
-      const password = e.target.password.value;
-      const confirmPassword = e.target['confirm-password'].value;
+    const registerBtn = document.getElementById('register-btn');
+    const errorMsg = document.getElementById('error-msg');
+    const successMsg = document.getElementById('success-msg');
 
-      if(password !== confirmPassword) {
-        alert("كلمتا المرور غير متطابقتين!");
+    registerBtn.addEventListener('click', () => {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      errorMsg.textContent = '';
+      successMsg.textContent = '';
+
+      if (!name || !email || !password) {
+        errorMsg.textContent = 'يرجى ملء جميع الحقول.';
         return;
       }
 
-      // هنا يمكنك إضافة منطق التسجيل الحقيقي مثل إرسال البيانات لخادم
-      alert(`تم إنشاء الحساب بنجاح!\nاسم المستخدم: ${username}\nالبريد: ${email}`);
-      window.location.href = "login.html"; // تحويل إلى صفحة الدخول بعد التسجيل
-    });
-
-    // تحديث عدد المنتجات في العربة (مكان مؤقت)
-    const cartCount = document.getElementById('cart-count');
-    cartCount.textContent = localStorage.getItem('cartCount') || '0';
-
-    // أزرار وهمية - يمكن ربطها لاحقًا
-    document.getElementById('cart-button').addEventListener('click', () => {
-      alert('فتح عربة التسوق');
-    });
-    document.getElementById('login-button').addEventListener('click', () => {
-      window.location.href = "login.html";
+      identity.signup(email, password, { full_name: name })
+        .then(() => {
+          successMsg.textContent = 'تم إنشاء الحساب! تحقق من بريدك الإلكتروني لتأكيد الحساب.';
+          // يمكن تحويل المستخدم إلى صفحة تسجيل الدخول بعد ثواني:
+          setTimeout(() => {
+            window.location.href = 'login.html';
+          }, 3000);
+        })
+        .catch(err => {
+          errorMsg.textContent = 'حدث خطأ في إنشاء الحساب: ' + err.message;
+        });
     });
   </script>
 </body>
