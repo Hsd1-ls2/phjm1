@@ -1,76 +1,105 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>إنشاء حساب - مكتبة الجمهورية</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <meta charset="UTF-8">
+  <title>إنشاء حساب جديد</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: 'Arial', sans-serif;
+      background-color: #f7f7f7;
       direction: rtl;
-      background-color: #fff;
       margin: 0;
       padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
     }
     .container {
-      text-align: center;
-      background: #ffffff;
-      padding: 40px;
-      border-radius: 12px;
+      max-width: 400px;
+      margin: 80px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      text-align: center;
     }
-    h2 {
-      margin-bottom: 20px;
-      color: #1E3C72;
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
     }
     button {
-      padding: 12px 28px;
-      font-size: 1rem;
       background-color: #1E3C72;
       color: white;
       border: none;
-      border-radius: 6px;
       cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
     }
     button:hover {
       background-color: #16355c;
     }
-    .note {
+    .message {
       margin-top: 15px;
-      font-size: 0.9rem;
-      color: #555;
+      font-weight: bold;
+    }
+    .error {
+      color: red;
+    }
+    .success {
+      color: green;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <h2>إنشاء حساب جديد</h2>
-    <button onclick="openSignup()">اضغط هنا لإنشاء الحساب</button>
-    <div class="note">سيتم فتح نافذة لتسجيل الحساب أو تسجيل الدخول.</div>
+    <h2>إنشاء حساب</h2>
+    <input type="text" id="fullName" placeholder="الاسم الكامل" />
+    <input type="email" id="email" placeholder="البريد الإلكتروني" />
+    <input type="password" id="password" placeholder="كلمة المرور" />
+    <button onclick="register()">تسجيل</button>
+
+    <div id="message" class="message"></div>
   </div>
 
   <script>
-    // تهيئة Netlify Identity
-    netlifyIdentity.init();
+    async function register() {
+      const fullName = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const msg = document.getElementById('message');
 
-    // فتح نموذج التسجيل
-    function openSignup() {
-      netlifyIdentity.open('signup');
+      msg.textContent = '';
+      msg.className = 'message';
+
+      if (!fullName || !email || !password) {
+        msg.textContent = 'يرجى ملء جميع الحقول.';
+        msg.classList.add('error');
+        return;
+      }
+
+      try {
+        const response = await fetch('/.netlify/identity/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password, user_metadata: { full_name: fullName } })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          msg.textContent = result.msg || 'حدث خطأ أثناء التسجيل.';
+          msg.classList.add('error');
+        } else {
+          msg.textContent = 'تم إنشاء الحساب بنجاح! يرجى تأكيد بريدك الإلكتروني.';
+          msg.classList.add('success');
+        }
+
+      } catch (error) {
+        msg.textContent = 'فشل الاتصال بالخادم.';
+        msg.classList.add('error');
+      }
     }
-
-    // يمكنك تنفيذ إجراءات بعد تسجيل الدخول هنا إن أردت
-    netlifyIdentity.on('login', user => {
-      alert('مرحبًا بك، ' + user.user_metadata.full_name || user.email);
-      window.location.href = '/'; // تحويل للموقع بعد التسجيل
-    });
   </script>
 
 </body>
