@@ -5,10 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>إنشاء حساب - مكتبة الجمهورية</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #fff; direction: rtl; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+      direction: rtl;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
     .container {
       max-width: 360px;
-      margin: 60px auto;
+      width: 100%;
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.12);
@@ -22,6 +32,7 @@
       border-radius: 6px;
       border: 1px solid #ccc;
       font-size: 1rem;
+      box-sizing: border-box;
     }
     button {
       background-color: #1E3C72;
@@ -29,6 +40,7 @@
       border: none;
       cursor: pointer;
       font-weight: 600;
+      transition: background-color 0.3s ease;
     }
     button:hover {
       background-color: #16355c;
@@ -48,8 +60,12 @@
       margin: 12px 0;
       font-weight: 600;
     }
-    .error { color: red; }
-    .success { color: green; }
+    .error {
+      color: red;
+    }
+    .success {
+      color: green;
+    }
   </style>
 </head>
 <body>
@@ -68,11 +84,15 @@
     <p class="link">هل لديك حساب؟ <a href="login.html">تسجيل الدخول</a></p>
   </div>
 
-  <!-- Netlify Identity Widget -->
+  <!-- مكتبة Netlify Identity -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
-    const identity = netlifyIdentity;
-    identity.init();
+    const identity = window.netlifyIdentity;
+    if (identity) {
+      identity.init();
+    } else {
+      console.error("فشل تحميل مكتبة Netlify Identity.");
+    }
 
     const registerBtn = document.getElementById('register-btn');
     const errorMsg = document.getElementById('error-msg');
@@ -94,7 +114,6 @@
       identity.signup(email, password, { full_name: name })
         .then(() => {
           successMsg.textContent = 'تم إنشاء الحساب! تحقق من بريدك الإلكتروني لتأكيد الحساب.';
-          // يمكن تحويل المستخدم إلى صفحة تسجيل الدخول بعد ثواني:
           setTimeout(() => {
             window.location.href = 'login.html';
           }, 3000);
