@@ -1,56 +1,31 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>مكتبة ومصور الجمهورية</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <title>مكتبة الجمهورية</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <h1>مكتبة ومصور الجمهورية</h1>
+  <header>
+    <h1>مكتبة الجمهورية</h1>
+    <p>مرحبا بك! اختر أحد أقسام المنتجات أدناه</p>
+  </header>
 
-  <div class="product">
-    <img src="https://imgur.com/a/JXC3EPe" alt="دفتر A4" />
-    <div class="product-name">دفتر A4</div>
-    <div class="price">$2</div>
-    <button class="add-button" onclick="addToCart('دفتر A4 - $2')">أضف إلى السلة</button>
-  </div>
-
-  <div class="product">
-    <img src="https://i.imgur.com/SJxGRMf.jpg" alt="أقلام ألوان" />
-    <div class="product-name">أقلام ألوان</div>
-    <div class="price">$5</div>
-    <button class="add-button" onclick="addToCart('أقلام ألوان - $5')">أضف إلى السلة</button>
-  </div>
-
-  <div class="product">
-    <img src="https://i.imgur.com/Zl0a5E3.jpg" alt="آلة حاسبة" />
-    <div class="product-name">آلة حاسبة</div>
-    <div class="price">$8</div>
-    <button class="add-button" onclick="addToCart('آلة حاسبة - $8')">أضف إلى السلة</button>
-  </div>
-
-  <a id="sendWhatsApp" class="send-button" href="#" target="_blank">إرسال الطلب على واتساب</a>
-
-  <script>
-    let cart = [];
-
-    function addToCart(product) {
-      cart.push(product);
-      alert("تمت الإضافة إلى السلة: " + product);
-    }
-
-    document.getElementById('sendWhatsApp').addEventListener('click', function () {
-      if (cart.length === 0) {
-        alert("السلة فارغة!");
-        return;
-      }
-      const message = encodeURIComponent("أرغب بشراء المنتجات التالية:\n" + cart.join("\n"));
-      const phone = "+9647717702898"; // غيّر الرقم هنا
-      this.href = `https://wa.me/${phone}?text=${message}`;
-    });
-  </script>
+  <main class="categories">
+    <a href="notebooks.html" class="category-card">
+      <img src="https://i.imgur.com/FwODc09.png" alt="دفاتر">
+      <h2>دفاتر</h2>
+    </a>
+    <a href="pens.html" class="category-card">
+      <img src="https://i.imgur.com/gTzJAVc.png" alt="أقلام">
+      <h2>أقلام</h2>
+    </a>
+    <a href="electronics.html" class="category-card">
+      <img src="https://i.imgur.com/vzGE9DN.png" alt="أدوات إلكترونية">
+      <h2>أدوات إلكترونية</h2>
+    </a>
+  </main>
 
 </body>
 </html>
