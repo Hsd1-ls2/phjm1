@@ -4,32 +4,136 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>تسجيل الدخول - مكتبة ومصور الجمهورية</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body, html {
+      height: 100%;
+      background: linear-gradient(135deg, #1E3C72 0%, #2A5298 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      direction: rtl;
+    }
+
+    .login-container {
+      background-color: white;
+      width: 360px;
+      border-radius: 12px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .login-container h2 {
+      margin-bottom: 25px;
+      color: #1E3C72;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: right;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+      font-size: 1rem;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1.5px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #1E3C72;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #1E3C72;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #16355c;
+    }
+
+    .register-link {
+      margin-top: 18px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .register-link a {
+      color: #1E3C72;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 400px) {
+      .login-container {
+        width: 90%;
+        padding: 30px 20px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <main class="auth-container">
+  <div class="login-container">
     <h2>تسجيل الدخول</h2>
     <form id="login-form">
-      <label for="email">البريد الإلكتروني:</label>
-      <input type="email" id="email" required />
-
-      <label for="password">كلمة المرور:</label>
-      <input type="password" id="password" required />
-
+      <div class="input-group">
+        <label for="email">البريد الإلكتروني</label>
+        <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني" required />
+      </div>
+      <div class="input-group">
+        <label for="password">كلمة المرور</label>
+        <input type="password" id="password" placeholder="أدخل كلمة المرور" required />
+      </div>
       <button type="submit">دخول</button>
     </form>
-    <p>ليس لديك حساب؟ <a href="register.html">إنشاء حساب</a></p>
-  </main>
+    <p class="register-link">ليس لديك حساب؟ <a href="register.html">إنشاء حساب</a></p>
+  </div>
 
   <script>
-    document.getElementById('login-form').addEventListener('submit', (e) => {
+    document.getElementById('login-form').addEventListener('submit', function(e) {
       e.preventDefault();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
+      const email = e.target.email.value.trim();
+      const password = e.target.password.value.trim();
 
-      // تحقق مبسط - في الواقع تحتاج backend
-      if (email === "user@example.com" && password === "123456") {
+      // تحقق مبسط (للاختبار فقط)
+      if(email === "user@example.com" && password === "123456") {
         alert("تم تسجيل الدخول بنجاح!");
         window.location.href = "index.html";
       } else {
@@ -37,6 +141,5 @@
       }
     });
   </script>
-
 </body>
 </html>
