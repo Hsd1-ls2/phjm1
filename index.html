@@ -1,48 +1,90 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الرئيسية - متجر</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مكتبة ومصور الجمهورية</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f1ee;
+      color: #333;
+    }
+    header {
+      background-color: #7a5230;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+    }
+    .sidebar {
+      width: 220px;
+      background-color: #e0d7ce;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      padding-top: 60px;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    }
+    .sidebar a {
+      display: block;
+      padding: 15px 20px;
+      text-decoration: none;
+      color: #333;
+      border-bottom: 1px solid #ccc;
+    }
+    .sidebar a:hover {
+      background-color: #d2c2b6;
+    }
+    main {
+      margin-right: 240px;
+      padding: 20px;
+    }
+    .section-title {
+      font-size: 20px;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #7a5230;
+      display: inline-block;
+    }
+    .product {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
-
 <body>
   <header>
-    <div class="container">
-      <h1>متجر المنتجات</h1>
-      <div id="user-info"></div>
-    </div>
+    مكتبة ومصور الجمهورية
   </header>
-
+  <div class="sidebar">
+    <a href="index.html">الصفحة الرئيسية</a>
+    <a href="notebooks.html">دفاتر</a>
+    <a href="pens.html">أقلام</a>
+    <a href="electronics.html">إلكترونيات</a>
+    <a href="cart.html">سلة المشتريات</a>
+    <a href="login.html">تسجيل الدخول</a>
+    <a href="register.html">إنشاء حساب</a>
+  </div>
   <main>
-    <section class="categories">
-      <div class="category"><a href="notebooks.html">دفاتر</a></div>
-      <div class="category"><a href="pens.html">أقلام</a></div>
-      <div class="category"><a href="electronics.html">إلكترونيات</a></div>
-    </section>
+    <h2 class="section-title">المنتجات المميزة</h2>
+    <div class="product">
+      <h3>دفتر A4</h3>
+      <p>دفتر بجودة عالية مناسب للمدارس والجامعات</p>
+    </div>
+    <div class="product">
+      <h3>أقلام ألوان</h3>
+      <p>مجموعة أقلام بألوان متنوعة للرسم والتلوين</p>
+    </div>
+    <div class="product">
+      <h3>آلة حاسبة</h3>
+      <p>آلة حاسبة علمية متعددة الاستخدامات</p>
+    </div>
   </main>
-
-  <script>
-    const SUPABASE_URL = 'https://hyzdnquhsxdskgauajii.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGci...'; // اختصر لأمان
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      const userInfoDiv = document.getElementById("user-info");
-      if (session && session.user) {
-        userInfoDiv.innerHTML = `مرحبًا، ${session.user.email} | <a href="#" onclick="logout()">تسجيل الخروج</a>`;
-      } else {
-        userInfoDiv.innerHTML = `<a href="login.html">تسجيل الدخول</a>`;
-      }
-    });
-
-    function logout() {
-      supabase.auth.signOut().then(() => location.reload());
-    }
-  </script>
 </body>
-
 </html>
