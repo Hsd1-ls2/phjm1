@@ -1,83 +1,108 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تسجيل الدخول</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تسجيل الدخول - مكتبة الجمهورية</title>
   <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      background-color: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .login-box {
-      background-color: #fff;
+    body { font-family: Arial, sans-serif; background: #fff; direction: rtl; }
+    .container {
+      max-width: 360px;
+      margin: 60px auto;
       padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 400px;
-    }
-    h2 {
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      background: white;
       text-align: center;
-      color: #9c794d;
     }
-    input[type="email"], input[type="password"] {
+    input, button {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 6px;
       border: 1px solid #ccc;
-      border-radius: 4px;
+      font-size: 1rem;
     }
     button {
-      width: 100%;
-      padding: 10px;
-      background-color: #9c794d;
+      background-color: #1E3C72;
       color: white;
       border: none;
-      border-radius: 4px;
       cursor: pointer;
-      font-size: 16px;
+      font-weight: 600;
     }
-    .error {
-      color: red;
-      text-align: center;
+    button:hover {
+      background-color: #16355c;
     }
+    .link {
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+    .link a {
+      color: #1E3C72;
+      text-decoration: none;
+    }
+    .link a:hover {
+      text-decoration: underline;
+    }
+    .error, .success {
+      margin: 12px 0;
+      font-weight: 600;
+    }
+    .error { color: red; }
+    .success { color: green; }
   </style>
 </head>
-
 <body>
-  <div class="login-box">
+
+  <div class="container">
     <h2>تسجيل الدخول</h2>
-    <input type="email" id="email" placeholder="البريد الإلكتروني">
-    <input type="password" id="password" placeholder="كلمة المرور">
-    <button onclick="login()">دخول</button>
-    <p class="error" id="error"></p>
+
+    <input type="email" id="email" placeholder="البريد الإلكتروني" required />
+    <input type="password" id="password" placeholder="كلمة المرور" required />
+    <button id="login-btn">دخول</button>
+
+    <div class="error" id="error-msg"></div>
+    <div class="success" id="success-msg"></div>
+
+    <p class="link">ليس لديك حساب؟ <a href="register.html">إنشاء حساب</a></p>
   </div>
 
+  <!-- Netlify Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
-    const SUPABASE_URL = 'https://hyzdnquhsxdskgauajii.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5emRucXVoc3hkc2tnYXVhamlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc1MDIyNDksImV4cCI6MjA2MzA3ODI0OX0.qwjnYL-IjaMQPtNk5vYeZtCYelV3Npau5lNb_2aOM1k';
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const identity = netlifyIdentity;
 
-    async function login() {
-      const email = document.getElementById('email').value;
+    // استدعاء Netlify Identity
+    identity.init();
+
+    const loginBtn = document.getElementById('login-btn');
+    const errorMsg = document.getElementById('error-msg');
+    const successMsg = document.getElementById('success-msg');
+
+    loginBtn.addEventListener('click', () => {
+      const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
-      if (error) {
-        document.getElementById('error').innerText = 'بيانات غير صحيحة، حاول مرة أخرى';
-      } else {
-        window.location.href = 'index.html';
+      errorMsg.textContent = '';
+      successMsg.textContent = '';
+
+      if (!email || !password) {
+        errorMsg.textContent = 'يرجى إدخال البريد الإلكتروني وكلمة المرور.';
+        return;
       }
-    }
+
+      identity.login(email, password)
+        .then(user => {
+          successMsg.textContent = `مرحباً ${user.user_metadata.full_name || user.email}! تم تسجيل الدخول بنجاح.`;
+          // بعد تسجيل الدخول يمكنك تحويل المستخدم مثلاً للصفحة الرئيسية:
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1500);
+        })
+        .catch(err => {
+          errorMsg.textContent = 'حدث خطأ في تسجيل الدخول: ' + err.message;
+        });
+    });
   </script>
 </body>
-
 </html>
