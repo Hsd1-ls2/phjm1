@@ -1,104 +1,53 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>مكتبة ومصور الجمهورية</title>
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background-color: #f9f6f2;
-      color: #333;
-      direction: rtl;
-    }
-    header {
-      background-color: #8B4513;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 28px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .sidebar {
-      width: 230px;
-      background-color: #eee1d1;
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      padding-top: 80px;
-      box-shadow: -2px 0 5px rgba(0,0,0,0.1);
-    }
-    .sidebar a {
-      display: block;
-      padding: 15px 20px;
-      text-decoration: none;
-      color: #333;
-      border-bottom: 1px solid #d4c2b1;
-      font-size: 18px;
-    }
-    .sidebar a:hover {
-      background-color: #d8c3ac;
-    }
-    main {
-      margin-right: 250px;
-      padding: 30px 20px;
-    }
-    .section-title {
-      font-size: 24px;
-      margin-bottom: 20px;
-      padding-bottom: 5px;
-      border-bottom: 3px solid #8B4513;
-      display: inline-block;
-    }
-    .product {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    }
-    .product h3 {
-      margin: 0 0 10px;
-    }
-    .product p {
-      color: #555;
-    }
-  </style>
 </head>
-<body>
-  <header>
-    مكتبة ومصور الجمهورية
-  </header>
+<body dir="rtl">
+
   <div class="sidebar">
-    <a href="index.html">الرئيسية</a>
-    <a href="notebooks.html">الدفاتر</a>
-    <a href="pens.html">الأقلام</a>
-    <a href="electronics.html">الإلكترونيات</a>
-    <a href="cart.html">سلة المشتريات</a>
-    <a href="login.html">تسجيل الدخول</a>
-    <a href="register.html">إنشاء حساب</a>
+    <h2>مكتبة ومصور الجمهورية</h2>
+    <ul>
+      <li><a href="index.html">الرئيسية</a></li>
+      <li><a href="notebooks.html">دفاتر</a></li>
+      <li><a href="pens.html">أقلام</a></li>
+      <li><a href="electronics.html">إلكترونيات</a></li>
+      <li><a href="cart.html">السلة</a></li>
+      <li><a href="login.html">تسجيل الدخول</a></li>
+      <li><a href="register.html">إنشاء حساب</a></li>
+    </ul>
   </div>
-  <main>
-    <h2 class="section-title">منتجات مختارة</h2>
 
-    <div class="product">
-      <h3>دفتر A4</h3>
-      <p>دفتر عالي الجودة، مثالي للاستخدام المدرسي والجامعي.</p>
+  <div class="main-content">
+    <h1>مرحبًا بكم في مكتبة ومصور الجمهورية</h1>
+    <p>نقدم لكم أفضل الأدوات المدرسية والقرطاسية بأفضل الأسعار.</p>
+
+    <div class="product-list">
+      <div class="product">
+        <img src="images/notebook.jpg" alt="دفتر A4" />
+        <h3>دفتر A4</h3>
+        <p>$2</p>
+        <button>أضف إلى السلة</button>
+      </div>
+
+      <div class="product">
+        <img src="images/pens.jpg" alt="أقلام ألوان" />
+        <h3>أقلام ألوان</h3>
+        <p>$5</p>
+        <button>أضف إلى السلة</button>
+      </div>
+
+      <div class="product">
+        <img src="images/calculator.jpg" alt="آلة حاسبة" />
+        <h3>آلة حاسبة</h3>
+        <p>$8</p>
+        <button>أضف إلى السلة</button>
+      </div>
     </div>
+  </div>
 
-    <div class="product">
-      <h3>أقلام ألوان</h3>
-      <p>مجموعة مميزة من الأقلام الملونة للرسم والتلوين.</p>
-    </div>
-
-    <div class="product">
-      <h3>آلة حاسبة علمية</h3>
-      <p>آلة متعددة الوظائف، مفيدة للطلاب والمهنيين.</p>
-    </div>
-
-  </main>
 </body>
 </html>
