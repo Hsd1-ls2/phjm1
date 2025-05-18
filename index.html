@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>مكتبة ومصور الجمهورية</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">مكتبة الجمهورية</div>
+
+    <ul class="nav-links">
+      <li><a href="index.html">الرئيسية</a></li>
+      <li><a href="notebooks.html">الدفاتر</a></li>
+      <li><a href="pens.html">الأقلام</a></li>
+      <li><a href="electronics.html">الإلكترونيات</a></li>
+    </ul>
+
+    <div class="search-language-cart-login">
+      <input type="text" id="search-input" placeholder="ابحث عن منتج..." />
+      <select id="language-select" aria-label="اختيار اللغة">
+        <option value="ar" selected>العربية</option>
+        <option value="en">English</option>
+      </select>
+      <button id="cart-button">🛒 <span id="cart-count">0</span></button>
+      <button id="login-button">تسجيل الدخول</button>
+    </div>
+  </nav>
+
+  <main>
+    <h1>مرحباً بك في مكتبة ومصور الجمهورية</h1>
+    <p>اختر القسم لتصفح المنتجات:</p>
+
+    <div class="categories">
+      <a href="notebooks.html" class="category-card">الدفاتر</a>
+      <a href="pens.html" class="category-card">الأقلام</a>
+      <a href="electronics.html" class="category-card">الإلكترونيات</a>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

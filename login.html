@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تسجيل الدخول - مكتبة الجمهورية</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fff; direction: rtl; }
+    .container {
+      max-width: 360px;
+      margin: 60px auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      background: white;
+      text-align: center;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #1E3C72;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button:hover {
+      background-color: #16355c;
+    }
+    .link {
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+    .link a {
+      color: #1E3C72;
+      text-decoration: none;
+    }
+    .link a:hover {
+      text-decoration: underline;
+    }
+    .error, .success {
+      margin: 12px 0;
+      font-weight: 600;
+    }
+    .error { color: red; }
+    .success { color: green; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>تسجيل الدخول</h2>
+
+    <input type="email" id="email" placeholder="البريد الإلكتروني" required />
+    <input type="password" id="password" placeholder="كلمة المرور" required />
+    <button id="login-btn">دخول</button>
+
+    <div class="error" id="error-msg"></div>
+    <div class="success" id="success-msg"></div>
+
+    <p class="link">ليس لديك حساب؟ <a href="register.html">إنشاء حساب</a></p>
+  </div>
+
+  <!-- Netlify Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    const identity = netlifyIdentity;
+
+    // استدعاء Netlify Identity
+    identity.init();
+
+    const loginBtn = document.getElementById('login-btn');
+    const errorMsg = document.getElementById('error-msg');
+    const successMsg = document.getElementById('success-msg');
+
+    loginBtn.addEventListener('click', () => {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      errorMsg.textContent = '';
+      successMsg.textContent = '';
+
+      if (!email || !password) {
+        errorMsg.textContent = 'يرجى إدخال البريد الإلكتروني وكلمة المرور.';
+        return;
+      }
+
+      identity.login(email, password)
+        .then(user => {
+          successMsg.textContent = `مرحباً ${user.user_metadata.full_name || user.email}! تم تسجيل الدخول بنجاح.`;
+          // بعد تسجيل الدخول يمكنك تحويل المستخدم مثلاً للصفحة الرئيسية:
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1500);
+        })
+        .catch(err => {
+          errorMsg.textContent = 'حدث خطأ في تسجيل الدخول: ' + err.message;
+        });
+    });
+  </script>
+</body>
+</html>
